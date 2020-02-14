@@ -9,7 +9,7 @@
     "export": "next export",
     "scss": "node-sass --watch scss -o css",
     "html-sketchapp-install": "html-sketchapp install",
-    "html-sketchapp": "html-sketchapp --file /out/index.html --out-dir dist"
+    "html-sketchapp": "html-sketchapp --config html-sketchapp.config.js"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
