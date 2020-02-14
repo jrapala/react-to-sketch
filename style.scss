@@ -1,0 +1,148 @@
+$color-dark: #1b1b18;
+$color-light: #eaeaea;
+$color-highlight: #cbc5ea;
+$color-lowlight: #73628a;
+$color-lowlight-02: rgba(49, 61, 90, 0.5);
+
+$baseColors: (
+	master-tour-red: #EF232D,
+);
+
+@function colorMap($baseColors, $variations) {
+	$colors:();
+	
+	@each $color, $value in $baseColors {
+	  $maxVar: 36;
+	  $mid: $variations / 2;
+	  $dist: $mid - 1;
+	  $step: $maxVar / $dist;
+	  
+	  // Lighten and darken
+	  @for $i from 1 through $dist {
+		$percent: $maxVar - ($step * ($i - 1));
+		$darken: ($variations - $i) * 100;
+		$lighten: $i * 100;
+  
+		$colors: map-merge($colors, (
+		   #{$color}-#{$lighten}: lighten($value, $percent),
+		   #{$color}-#{$darken}:  darken($value, $percent)
+		));
+	  }
+  
+	  // middle eg 500
+	  $colors: map-merge($colors, (#{$color}-50: lighten($value, 38.7)));
+	  $colors: map-merge($colors, (#{$color}-#{$variations/2*100}: $value));
+	}
+	@return $colors;
+  }
+  
+  @each $color, $value in colorMap($baseColors, 10) {
+	.#{$color} { 
+	  &::before {
+		content: '#{$value}';
+		font-family: monospace;
+		float: right;
+		text-transform: uppercase;
+	  }
+	  background-color: $value;
+	}
+  }
+
+
+
+html {
+	background-color: $color-light;
+	color: $color-dark;
+	box-sizing: border-box;
+	font-size: 16px;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+body {
+	font-family: 'Cabin', sans-serif;
+	font-size: 16px;
+	margin: 3em auto;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+}
+
+h2 {
+	font-size: 2rem;
+	margin: 1em 0;
+	font-weight: 600;
+}
+
+.palette {
+	display: flex;
+	flex-wrap: wrap;
+}
+  
+.swatches {
+	flex: auto;
+	margin: 20px;
+}
+  
+.swatch-title {
+	padding: 12px;
+	text-transform: uppercase;
+	text-align: left;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	
+	h3 {
+		margin: 0 0 50px;
+		font-size: inherit;
+	}
+}
+  
+.color-swatch:nth-child(n+7) {
+	color: #fff;
+}
+
+.color-swatch:last-child {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+  
+.color-swatch {
+	box-sizing: border-box;
+	min-width: 360px;
+	padding: 12px;
+	display: block;
+	text-align: left;
+	padding-left: 2em;
+	padding-right: 2em;
+	text-transform: uppercase;
+	font-size: .8em;
+}
