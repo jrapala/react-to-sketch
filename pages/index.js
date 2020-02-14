@@ -1,7 +1,8 @@
 import React from 'react'
 import Head from 'next/head'
 import Main from "../components/Main"
-import "../style.scss"
+// import "../scss/style.scss"
+import "../css/style.css"
 
 const Home = () => (
   <div>
